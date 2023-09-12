@@ -5,9 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.fiap.beans.user.bike.Acessorio;
-import com.fiap.beans.user.bike.Bike;
-import com.fiap.beans.user.bike.Modificacao;
+import com.fiap.beans.user.bike.Marca;
 
 public class BikeDao {
 
@@ -15,29 +13,17 @@ public class BikeDao {
     private final String USER = "rm99627";
     private final String PASS = "051298";
 
-    public void inserir(Bike bike) throws SQLException {
+    public void inserir(Marca marca) throws SQLException {
 
-        Acessorio[] acessorios = bike.getAcessorios();
-        String acessoriosString = String.join(",", (CharSequence[]) acessorios);
-
-        Modificacao[] modificacoes = bike.getModificacoes();
-        String modificacoesString = String.join(",", (CharSequence[]) modificacoes);
-
+        
         try (Connection con = DriverManager.getConnection(URL, USER, PASS)) {
-            String sql = "INSERT INTO bike (codigo, modelo, modificacoes, acessorios, aquisicao, notas, utilizacao, numNota, numChassi) "
+            String sql = "INSERT INTO marca (codigo, nome) "
                     +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "VALUES (?, ?)";
 
             try (PreparedStatement ps = con.prepareStatement(sql)) {
-                ps.setInt(1, bike.getCodigo());
-                ps.setString(2, bike.getModelo().getNome());
-                ps.setString(3, modificacoesString);
-                ps.setString(4, acessoriosString);
-                ps.setDate(5, new java.sql.Date(bike.getAquisicao().getTime()));
-                ps.setString(6, bike.getNotas());
-                ps.setString(7, bike.getUtilizacao());
-                ps.setString(8, bike.getNumNota());
-                ps.setString(9, bike.getNumChassi());
+                ps.setInt(1, marca.getCodigo());
+                ps.setString(2, marca.getNome());
 
                 ps.executeUpdate();
                 con.close();

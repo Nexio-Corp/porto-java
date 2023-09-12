@@ -1,6 +1,7 @@
 package com.fiap.beans.test;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.fiap.beans.user.Usuario;
@@ -9,6 +10,7 @@ import com.fiap.beans.user.bike.Bike;
 import com.fiap.beans.user.bike.Marca;
 import com.fiap.beans.user.bike.ModeloBike;
 import com.fiap.beans.user.bike.Modificacao;
+import com.fiap.beans.user.bike.data.BikeDao;
 import com.fiap.beans.vistoria.Vistoria;
 
 public class App {
@@ -37,13 +39,13 @@ public class App {
         } else {
             System.out.println("Vistoria reprovada\nMotivo: " + vistoria.getMotivoRejeicao());
 
-            // BikeDao dao = new BikeDao();
+            BikeDao dao = new BikeDao();
 
-            // try{
-            // dao.inserir(veiculo);
-            // }catch(SQLException erro){
-            // mostrarMensagem("Erro", "Erro ao cadastrar. " + erro.getMessage());
-            // }
+            try {
+                dao.inserir(caloi);
+            } catch (SQLException erro) {
+                System.out.println("Erro ao inserir no banco de dados: " + erro.getMessage());
+            }
 
         }
 
