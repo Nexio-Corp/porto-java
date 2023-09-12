@@ -1,0 +1,27 @@
+{
+    "java.project.sourcePaths": ["src"],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": ["lib/**/*.jar"],
+    "cSpell.words": [
+        "Acessorio",
+        "acessorios",
+        "aquisicao",
+        "caloi",
+        "codigo",
+        "confianca",
+        "cotacao",
+        "criacao",
+        "descricao",
+        "Deteccao",
+        "endereco",
+        "Locacao",
+        "Modificacao",
+        "Rejeicao",
+        "usuario",
+        "Usuario",
+        "utilizacao",
+        "Validacao"
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.debug.settings.onBuildFailureProceed": true
+}
