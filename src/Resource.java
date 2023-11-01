@@ -1,4 +1,4 @@
-package com.fiap.beans;
+
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
