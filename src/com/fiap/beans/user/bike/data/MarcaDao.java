@@ -47,9 +47,9 @@ public class MarcaDao {
 
     public void inserir(Marca marca) throws SQLException {
 		var conexao = DriverManager.getConnection(URL, USER, PASS);
-	    var sql = "INSERT INTO marca (codigo, nome) VALUES (?, ?)";
+	    var sql = "INSERT INTO marca (nome) VALUES (?)";
 		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setInt(1, marca.getCodigo());
+//		ps.setInt(1, marca.getCodigo());
 		ps.setString(2, marca.getNome());
 		
 		ps.executeUpdate();

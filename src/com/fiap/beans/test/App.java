@@ -16,7 +16,7 @@ import com.fiap.beans.vistoria.Vistoria;
 public class App {
     public static void main(String[] args) throws Exception {
         Marca feitoEmCasa = new Marca("Feito em casa");
-        Marca caloi = new Marca("Caloi");
+        Marca caloi = new Marca("Caloi3");
         Acessorio lacinhoAcessorio = new Acessorio("Lacinho", "Um lancinho no guidão da bike", 5, feitoEmCasa);
         ModeloBike caloi10 = new ModeloBike("Caloi 10", caloi, 10, "Infantil");
         Modificacao rodaAro10 = new Modificacao("Roda aro 10", "Roda aro 10 para bicicletas infantis", 10, feitoEmCasa);
@@ -43,6 +43,7 @@ public class App {
 
             try {
                 dao.inserir(caloi);
+                System.out.println(caloi + " adicionado");
             } catch (SQLException erro) {
                 System.out.println("Erro ao inserir no banco de dados: " + erro.getMessage());
             }
