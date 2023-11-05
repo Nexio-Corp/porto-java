@@ -10,7 +10,7 @@ import com.fiap.beans.user.bike.Bike;
 import com.fiap.beans.user.bike.Marca;
 import com.fiap.beans.user.bike.ModeloBike;
 import com.fiap.beans.user.bike.Modificacao;
-import com.fiap.beans.user.bike.data.BikeDao;
+import com.fiap.beans.user.bike.data.MarcaDao;
 import com.fiap.beans.vistoria.Vistoria;
 
 public class App {
@@ -39,7 +39,7 @@ public class App {
         } else {
             System.out.println("Vistoria reprovada\nMotivo: " + vistoria.getMotivoRejeicao());
 
-            BikeDao dao = new BikeDao();
+            MarcaDao dao = new MarcaDao();
 
             try {
                 dao.inserir(caloi);
