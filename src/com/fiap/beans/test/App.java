@@ -46,6 +46,7 @@ public class App {
                 System.out.println(caloi + " adicionado");
             } catch (SQLException erro) {
                 System.out.println("Erro ao inserir no banco de dados: " + erro.getMessage());
+                erro.printStackTrace();
             }
 
         }

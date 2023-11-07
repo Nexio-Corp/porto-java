@@ -14,12 +14,9 @@ public class BikeService {
 		try {
 			List<Marca> listMarca = marcaDao.findAll();
 			return listMarca;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 		return null;
 	}
 	
@@ -28,10 +25,37 @@ public class BikeService {
 		try {
 			marca = marcaDao.findById(codigo);
 			return marca;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public void delete(Marca marca) {
+		try {
+			marcaDao.delete(marca);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+	}
+
+	public boolean create(Marca marca) {
+		if (marca.getNome().isEmpty()) return false;
+		try {
+			marcaDao.inserir(marca);
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	public boolean update(Marca marca) {
+		if (marca.getNome().isEmpty()) return false;
+		try {
+			marcaDao.atualiza(marca);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
 	}
 }

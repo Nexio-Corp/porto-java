@@ -1,5 +1,10 @@
 package com.fiap.beans.user.bike;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 public class Marca {
     private int codigo;
     private String nome;
@@ -8,7 +13,12 @@ public class Marca {
         this.nome = nome;
     }
 
-    public int getCodigo() {
+	public Marca(int codigo, String nome) {
+		this.codigo = codigo;
+		this.nome = nome;
+	}
+
+	public int getCodigo() {
         return codigo;
     }
 
