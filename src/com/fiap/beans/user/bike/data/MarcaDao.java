@@ -59,18 +59,20 @@ public class MarcaDao {
 		conexao.close();
 	}
     
-    public void delete(Marca marca) throws SQLException {
+    public void delete(Marca marca) throws SQLException, ClassNotFoundException {
+    	classForName();
 		var con = DriverManager.getConnection(URL, USER, PASS);
-        var ps = con.prepareStatement("DELETE FROM estados WHERE codigo = ?"); 
+        var ps = con.prepareStatement("DELETE FROM marca WHERE codigo = ?"); 
         ps.setLong(1, marca.getCodigo());
         ps.executeUpdate();
         con.close();
 	}
 
-	public void atualiza(Marca marca) throws SQLException {
-		assert marca != null : "O objeto Estado não pode ser nulo.";
+	public void atualiza(Marca marca) throws SQLException, ClassNotFoundException {
+		classForName();
+		assert marca != null : "O objeto Marca não pode ser nulo.";
 		var con = DriverManager.getConnection(URL, USER, PASS);
-        var ps = con.prepareStatement("UPDATE estados SET nome=? WHERE codigo=?"); 
+        var ps = con.prepareStatement("UPDATE marca SET nome=? WHERE codigo=?"); 
         ps.setString(1, marca.getNome());
         ps.setInt(2, marca.getCodigo());
         ps.executeUpdate();

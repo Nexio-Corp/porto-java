@@ -8,6 +8,7 @@ import com.fiap.beans.user.bike.Marca;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -27,7 +28,6 @@ public class MarcaResource {
 		if (lista==null) return Response.status(Response.Status.NOT_FOUND).build();
 		return Response.ok(lista).build();
 	}
-	
 	
 	@GET
 	@Path("{codigo}")
@@ -53,6 +53,16 @@ public class MarcaResource {
 		if (!service.create(marca)) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
+		return Response.ok(marca).build();
+	}
+	
+	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("{id}")
+	public Response update(@PathParam("id") Integer id, Marca marca) {
+		var marcaEncontrada = service.listarPorCodigo(id);
+		if (marcaEncontrada == null) return Response.status(Response.Status.NOT_FOUND).build();
+		if(!service.update(marca)) return Response.status(Response.Status.BAD_REQUEST).build();
 		return Response.ok(marca).build();
 	}
 	

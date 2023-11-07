@@ -34,7 +34,7 @@ public class BikeService {
 	public void delete(Marca marca) {
 		try {
 			marcaDao.delete(marca);
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}		
 	}
@@ -53,7 +53,7 @@ public class BikeService {
 		if (marca.getNome().isEmpty()) return false;
 		try {
 			marcaDao.atualiza(marca);
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		return true;

@@ -1,14 +1,11 @@
 package com.fiap.beans.user.bike;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
-@AllArgsConstructor
 public class Marca {
     private int codigo;
     private String nome;
 
+    public Marca() {}
+    
     public Marca(String nome) {
         this.nome = nome;
     }
