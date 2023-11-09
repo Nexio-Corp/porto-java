@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import com.fiap.beans.user.Usuario;
 import com.fiap.beans.user.bike.Acessorio;
-import com.fiap.beans.user.bike.Bike;
 import com.fiap.beans.user.bike.Marca;
 import com.fiap.beans.user.bike.ModeloBike;
 import com.fiap.beans.user.bike.Modificacao;

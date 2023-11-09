@@ -9,7 +9,9 @@ public class Usuario {
     private Cliente cliente;
     private String email;
 
-    Usuario(String usuario, String tokenAuth, String email) {
+    public Usuario(){}
+    
+    public Usuario(String usuario, String tokenAuth, String email) {
         this.usuario = usuario;
         this.tokenAuth = tokenAuth;
         this.email = email;
@@ -18,7 +20,7 @@ public class Usuario {
     public static Usuario cadastroComEmailSenha(String email, String senha) {
         // A fazer: usar um serviço de auth
 
-        return new Usuario(email.split("@")[0], Double.toString(new Random().nextDouble()), email);
+        return new Usuario(email.split("@")[0], Double.toString(new Random().nextDouble()).split("\\.")[1], email);
     }
 
     public static Usuario loginComEmailSenha(String email, String senha) {

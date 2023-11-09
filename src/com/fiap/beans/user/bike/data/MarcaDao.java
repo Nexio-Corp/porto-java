@@ -18,11 +18,11 @@ public class MarcaDao {
 		List<Marca> listMarca = new ArrayList<>();
 		classForName();
 		var conexao = DriverManager.getConnection(URL, USER, PASS);
-		var resultado = conexao.createStatement().executeQuery("SELECT * FROM marca ORDER BY codigo");
+		var resultado = conexao.createStatement().executeQuery("SELECT * FROM T_NSB_MARCA ORDER BY cod_marca");
 		while(resultado.next()){
 			listMarca.add(new Marca(
-					resultado.getInt("codigo"),
-					resultado.getString("nome"))
+					resultado.getInt("cod_marca"),
+					resultado.getString("nom_marca"))
 					);
 		}
 		conexao.close();
@@ -33,15 +33,15 @@ public class MarcaDao {
 		Marca marca = null;
 		classForName();
 		var conexao = DriverManager.getConnection(URL, USER, PASS);
-		var sql = "SELECT * FROM marca WHERE codigo = ?";
-        var stmt = conexao.prepareStatement(sql);
-        stmt.setInt(1, codigo);
-        var resultado = stmt.executeQuery();
+		var sql = "SELECT * FROM T_NSB_MARCA WHERE cod_marca = ?";
+        var ps = conexao.prepareStatement(sql);
+        ps.setInt(1, codigo);
+        var resultado = ps.executeQuery();
         
 		while(resultado.next()){
 			marca = new Marca(
-					resultado.getInt("codigo"),
-					resultado.getString("nome")
+					resultado.getInt("cod_marca"),
+					resultado.getString("nom_marca")
 					);
 		}
 		System.out.println(marca);
