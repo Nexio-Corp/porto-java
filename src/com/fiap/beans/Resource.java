@@ -77,19 +77,34 @@ public class Resource {
 	@Path("/usuario/{email}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response buscarPorEmail(@PathParam("email") String email){
-		if (!userService.buscaUsuario(email)) return Response.status(Response.Status.NOT_FOUND).entity("Usuario Não Encontrado!!").build();
+		if (!userService.buscaUsuario(email)) return Response.status(Response.Status.NOT_FOUND).header("Access-Control-Allow-Origin", "*")
+			      .header("Access-Control-Allow-Credentials", "true")
+			      .header("Access-Control-Allow-Headers",
+			        "origin, content-type, accept, authorization")
+			      .header("Access-Control-Allow-Methods", 
+			        "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity("Usuario Não Encontrado!!").build();
 		return Response.ok(email).build();
 	}
 	
-	@GET
+	@POST
 	@Path("/login/{user}")
 //	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response login(@PathParam("user") String user, Usuario usuario){
 		if (!userService.validarUsuario(usuario)) {
-			return Response.status(Response.Status.NOT_FOUND).entity("Usuario Não Encontrado!!").build();
+			return Response.status(Response.Status.NOT_FOUND).header("Access-Control-Allow-Origin", "*")
+				      .header("Access-Control-Allow-Credentials", "true")
+				      .header("Access-Control-Allow-Headers",
+				        "origin, content-type, accept, authorization")
+				      .header("Access-Control-Allow-Methods", 
+				        "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity("Usuario Não Encontrado!!").build();
 		}
-		return Response.ok("Validado").build();
+		return Response.ok("Validado").header("Access-Control-Allow-Origin", "*")
+			      .header("Access-Control-Allow-Credentials", "true")
+			      .header("Access-Control-Allow-Headers",
+			        "origin, content-type, accept, authorization")
+			      .header("Access-Control-Allow-Methods", 
+			        "GET, POST, PUT, DELETE, OPTIONS, HEAD").build();
 	}
 	
 	
@@ -100,9 +115,19 @@ public class Resource {
 		System.out.println("dentro do create");
 //		Usuario novoUsuario =  userService.cadastrarUsuario(usuario);
 		if (!userService.cadastrarUsuario(usuario)) {
-			return Response.status(Response.Status.BAD_REQUEST).build();
+			return Response.status(Response.Status.BAD_REQUEST).header("Access-Control-Allow-Origin", "*")
+				      .header("Access-Control-Allow-Credentials", "true")
+				      .header("Access-Control-Allow-Headers",
+				        "origin, content-type, accept, authorization")
+				      .header("Access-Control-Allow-Methods", 
+				        "GET, POST, PUT, DELETE, OPTIONS, HEAD").build();
 		}
-		return Response.ok(usuario).build();
+		return Response.ok(usuario).header("Access-Control-Allow-Origin", "*")
+			      .header("Access-Control-Allow-Credentials", "true")
+			      .header("Access-Control-Allow-Headers",
+			        "origin, content-type, accept, authorization")
+			      .header("Access-Control-Allow-Methods", 
+			        "GET, POST, PUT, DELETE, OPTIONS, HEAD").build();
 	}
 	
 	@POST
@@ -110,9 +135,19 @@ public class Resource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response inserirCliente(Cliente cliente) {
 		if (!clientService.inserirCliente(cliente)) {
-			Response.status(Response.Status.BAD_REQUEST).entity("Dados Invalidos").build();
+			Response.status(Response.Status.BAD_REQUEST).header("Access-Control-Allow-Origin", "*")
+		      .header("Access-Control-Allow-Credentials", "true")
+		      .header("Access-Control-Allow-Headers",
+		        "origin, content-type, accept, authorization")
+		      .header("Access-Control-Allow-Methods", 
+		        "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity("Dados Invalidos").build();
 		}
-		return Response.ok(cliente).build();
+		return Response.ok(cliente).header("Access-Control-Allow-Origin", "*")
+			      .header("Access-Control-Allow-Credentials", "true")
+			      .header("Access-Control-Allow-Headers",
+			        "origin, content-type, accept, authorization")
+			      .header("Access-Control-Allow-Methods", 
+			        "GET, POST, PUT, DELETE, OPTIONS, HEAD").build();
 	}
 	
 	
