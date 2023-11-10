@@ -6,7 +6,7 @@ import java.util.List;
 import com.fiap.beans.user.bike.Marca;
 import com.fiap.beans.user.bike.data.MarcaDao;
 
-public class BikeService {
+public class MarcaService {
 	
 	MarcaDao marcaDao = new MarcaDao();
 

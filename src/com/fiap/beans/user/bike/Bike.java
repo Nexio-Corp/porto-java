@@ -17,10 +17,12 @@ public class Bike {
     private boolean paraLocacao;
     private Cliente cliente;
     private String numChassi;
+    private int codUsuario;
 
-    public Bike(ModeloBike modelo, ArrayList<Modificacao> modificacoes, ArrayList<Acessorio> acessorios, int mediaUso,
-            Date aquisicao,
-            String notas, String utilizacao, String numNota, boolean paraLocacao, Cliente cliente, String numChassi) {
+    public Bike(ModeloBike modelo, ArrayList<Modificacao> modificacoes, 
+    		ArrayList<Acessorio> acessorios, int mediaUso,
+            Date aquisicao, String notas, String utilizacao, String numNota, 
+            boolean paraLocacao, Cliente cliente, String numChassi, int codUsuario) {
         // A fazer: enviar para o banco de dados
         this.modelo = modelo;
         this.modificacoes = modificacoes;
@@ -33,6 +35,7 @@ public class Bike {
         this.paraLocacao = paraLocacao;
         this.cliente = cliente;
         this.numChassi = numChassi;
+        this.codUsuario = codUsuario;
     }
 
     public Bike addModificacao(Modificacao modificacao) {
@@ -94,6 +97,9 @@ public class Bike {
     public String getNumChassi() {
         return numChassi;
     }
+    public void setCodigo(int codigoBike) {
+    	this.codigo = codigo;
+    }
 
     @Override
     public String toString() {
@@ -105,4 +111,5 @@ public class Bike {
         bikeString += "Nota Fiscal: " + this.numNota + "\n";
         return bikeString;
     }
+
 }

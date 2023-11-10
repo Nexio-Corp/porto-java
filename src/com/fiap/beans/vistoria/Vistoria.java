@@ -25,6 +25,7 @@ public class Vistoria {
         }
     }
 
+    @SuppressWarnings("unused")
     public boolean validarVistoria() {
         if (this.validada) {
             return this.aprovada;

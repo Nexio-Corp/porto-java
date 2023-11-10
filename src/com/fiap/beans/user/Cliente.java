@@ -18,7 +18,10 @@ public class Cliente {
     private Date dataNascimento;
     private String telefone;
     private ArrayList<Bike> bikes = new ArrayList<Bike>();
+    private int codigoUsuario;
 
+    public Cliente() {}
+    
     public Cliente(String nome, String cpf, String email, String cep, String endereco, Date dataNascimento,
             String telefone) {
         this.nome = nome;
@@ -34,10 +37,10 @@ public class Cliente {
     public void cadastroBike(
             ModeloBike modelo, ArrayList<Modificacao> modificacoes, ArrayList<Acessorio> acessorios,
             int mediaUso, Date aquisicao, String notas, String utilizacao,
-            String numNota, boolean paraLocacao, String numChassi) {
+            String numNota, boolean paraLocacao, String numChassi, int codUsuario) {
 
         this.bikes.add(new Bike(modelo, modificacoes, acessorios, mediaUso, aquisicao, notas,
-                utilizacao, numNota, paraLocacao, this, numChassi));
+                utilizacao, numNota, paraLocacao, this, numChassi,  codUsuario));
     }
 
     public int getCodigo() {
@@ -75,6 +78,18 @@ public class Cliente {
     public ArrayList<Bike> getBikes() {
         return bikes;
     }
+    
+    public int getCodigoUsuario() {
+		return codigoUsuario;
+	}
+
+	public void setCodigoUsuario(int codigoUsuario) {
+		this.codigoUsuario = codigoUsuario;
+	}
+    
+    public void setCodigo(int codigo) {
+    	this.codigo = codigo;
+    }
 
     public void setCep(String cep) {
         this.cep = cep;
@@ -103,4 +118,10 @@ public class Cliente {
 
         return clienteString;
     }
+
+	public void setBikes(ArrayList<Bike> carregarBikesDoCliente) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

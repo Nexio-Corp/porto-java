@@ -21,7 +21,7 @@ public class UsuarioService {
 	}
 	
 	public boolean cadastrarUsuario(Usuario user){
-		var usuario = Usuario.cadastroComEmailSenha(user.getEmail(), user.getTokenAuth());
+		var usuario = Usuario.cadastroComEmailSenha(user.getEmail(), user.getSenha());
 		try {
 			dao.inserirUsuario(usuario);
 			return true;
@@ -32,10 +32,9 @@ public class UsuarioService {
 		return false;
 	}
 	
-	public boolean login(String email) {
+	public boolean buscaUsuario(String email) {
 		try {
 			var usuario = dao.buscaUsuarioPorEmail(email);
-//			System.out.println(usuario.getEmail()+"    "+email);
 			var valida = usuario != null && usuario.getEmail().equals(email);
 			return valida;
 		} catch (ClassNotFoundException | SQLException e) {
@@ -43,4 +42,23 @@ public class UsuarioService {
 		}
 		return false;
 	}
+	
+	public boolean validarUsuario(Usuario usuarioRecebido) {
+		try {
+			var user = dao.buscaUsuarioPorEmail(usuarioRecebido.getEmail());
+			var validacao = usuarioRecebido != null 
+					&& usuarioRecebido.getUsuario().equals(user.getUsuario()) 
+					&& usuarioRecebido.getSenha().equals(user.getSenha());
+			System.out.println(usuarioRecebido.getUsuario() + user.getUsuario());
+			System.out.println(usuarioRecebido.getSenha()+ user.getSenha());
+			return validacao;
+					
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+		
+	}
+	
+	
 }
