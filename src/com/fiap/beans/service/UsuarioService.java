@@ -23,12 +23,12 @@ public class UsuarioService {
 	public boolean cadastrarUsuario(Usuario user){
 		var usuario = Usuario.cadastroComEmailSenha(user.getEmail(), user.getSenha());
 		try {
+			if (user.getSenha()==null || user.getEmail()== null) return false;
 			dao.inserirUsuario(usuario);
 			return true;
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(usuario); 
 		return false;
 	}
 	
@@ -46,19 +46,26 @@ public class UsuarioService {
 	public boolean validarUsuario(Usuario usuarioRecebido) {
 		try {
 			var user = dao.buscaUsuarioPorEmail(usuarioRecebido.getEmail());
-			var validacao = usuarioRecebido != null 
-					&& usuarioRecebido.getUsuario().equals(user.getUsuario()) 
+			
+			var validacao = user != null && usuarioRecebido != null 
+					&& usuarioRecebido.getEmail().equals(user.getEmail())
 					&& usuarioRecebido.getSenha().equals(user.getSenha());
-			System.out.println(usuarioRecebido.getUsuario() + user.getUsuario());
-			System.out.println(usuarioRecebido.getSenha()+ user.getSenha());
-			return validacao;
-					
+			return validacao;		
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
-		
 	}
-	
-	
+
+	public boolean usuarioExiste(Usuario usuario) {
+		try {
+			var user = dao.buscaUsuarioPorEmail(usuario.getEmail());
+			var validacao = user != null 
+					&& usuario.getEmail().equals(user.getEmail());
+			return validacao;
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

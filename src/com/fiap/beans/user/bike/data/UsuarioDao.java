@@ -27,7 +27,6 @@ public class UsuarioDao {
 	    ps.setString(2, usuario.getTokenAuth());
 	    ps.setString(3, usuario.getEmail());
 	    ps.setString(4, usuario.getSenha());
-	    System.out.println(usuario.getSenha());
 	    
 	    
 	    ps.executeUpdate();
@@ -40,10 +39,10 @@ public class UsuarioDao {
 	public Usuario buscaUsuario(Usuario usuario) throws SQLException, ClassNotFoundException {
 		Usuario usuarioEncontrado = null;
 		var conexao = conexao();
-	    var sql = "SELECT * FROM T_NSB_usuario where usuario = ? ";
+	    var sql = "SELECT * FROM T_NSB_usuario where des_email = ? ";
 	    var ps = conexao.prepareStatement(sql);
 	    var resultado = ps.executeQuery(sql);
-	    ps.setString(1, usuario.getUsuario());
+	    ps.setString(1, usuario.getEmail());
 	    while(resultado.next()){
 			usuarioEncontrado = new Usuario(
 					resultado.getString("usuario"),
@@ -71,7 +70,6 @@ public class UsuarioDao {
 					resultado.getString("des_email"),
 					resultado.getString("des_senha"));
 		}
-//	    System.out.println("usuario no Dao: \n"+usuario);
 		return usuario;
 	}
 }

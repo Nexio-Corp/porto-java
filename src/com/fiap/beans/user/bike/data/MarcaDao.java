@@ -39,7 +39,6 @@ public class MarcaDao {
 					resultado.getString("nom_marca")
 					);
 		}
-		System.out.println(marca);
 		return marca;
 	}
 

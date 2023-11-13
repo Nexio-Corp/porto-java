@@ -35,7 +35,7 @@ public class Resource {
 	@GET
 	@Path("/marcas")
     @Produces(MediaType.APPLICATION_JSON)
-	public Response index(){
+	public Response buscarMarcas(){
 		List<Marca> lista = bikeService.listarMarcas();
 		if (lista==null) return Response.status(Response.Status.NOT_FOUND).build();
 		return Response.ok(lista).build();
@@ -44,7 +44,7 @@ public class Resource {
 	@GET
 	@Path("/marca/{codigo}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response buscarPorId(@PathParam("codigo") Integer codigo){
+	public Response buscarMarcaPorId(@PathParam("codigo") Integer codigo){
 		Marca marca = bikeService.listarPorCodigo(codigo);
 		if(marca==null) return Response.status(Response.Status.NOT_FOUND).build();
 		return Response.ok(marca).build();
@@ -52,7 +52,7 @@ public class Resource {
 	
 	@DELETE
 	@Path("/marca/{codigo}")
-	public Response delete(@PathParam("codigo") Integer codigo) {
+	public Response deleteMarca(@PathParam("codigo") Integer codigo) {
 		var marca = bikeService.listarPorCodigo(codigo);
 		if(marca == null) return Response.status(Response.Status.NOT_FOUND).build();
 		bikeService.delete(marca);
@@ -62,7 +62,7 @@ public class Resource {
 	@POST
 	@Path("/cadastro-marca")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response create(Marca marca) {
+	public Response inserirMarca(Marca marca) {
 		if (!bikeService.create(marca)) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
@@ -72,7 +72,7 @@ public class Resource {
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/atualiza-marca/{id}")
-	public Response update(@PathParam("id") Integer id, Marca marca) {
+	public Response atualizaMarca(@PathParam("id") Integer id, Marca marca) {
 		var marcaEncontrada = bikeService.listarPorCodigo(id);
 		if (marcaEncontrada == null) return Response.status(Response.Status.NOT_FOUND).build();
 		if(!bikeService.update(marca)) return Response.status(Response.Status.BAD_REQUEST).build();
@@ -82,7 +82,7 @@ public class Resource {
 	@GET
 	@Path("/usuario/{email}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response buscarPorEmail(@PathParam("email") String email){
+	public Response buscarUsuarioPorEmail(@PathParam("email") String email){
 		if (!userService.buscaUsuario(email)) return Response.status(Response.Status.NOT_FOUND).header("Access-Control-Allow-Origin", "*")
 			      .header("Access-Control-Allow-Credentials", "true")
 			      .header("Access-Control-Allow-Headers",
@@ -97,12 +97,14 @@ public class Resource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response login(@PathParam("user") String user, Usuario usuario){
 		if (!userService.validarUsuario(usuario)) {
-			return Response.status(Response.Status.NOT_FOUND).header("Access-Control-Allow-Origin", "*")
+			return Response.status(Response.Status.NOT_FOUND)
+					  .header("Access-Control-Allow-Origin", "*")
 				      .header("Access-Control-Allow-Credentials", "true")
 				      .header("Access-Control-Allow-Headers",
 				        "origin, content-type, accept, authorization")
 				      .header("Access-Control-Allow-Methods", 
-				        "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity("Usuario Não Encontrado!!").build();
+				        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+				      .entity("Usuario Não Validado").build();
 		}
 		return Response.ok("Validado").header("Access-Control-Allow-Origin", "*")
 			      .header("Access-Control-Allow-Credentials", "true")
@@ -112,26 +114,36 @@ public class Resource {
 			        "GET, POST, PUT, DELETE, OPTIONS, HEAD").build();
 	}
 	
-	
 	@POST
 	@Path("/cadastro-usuario")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response inserirUsuario(Usuario usuario) {
-		System.out.println("dentro do create");
-//		Usuario novoUsuario =  userService.cadastrarUsuario(usuario);
+		if (userService.usuarioExiste(usuario)) {
+	        return Response.status(Response.Status.CONFLICT)
+	                .entity("E-mail já está em uso")
+	                .header("Access-Control-Allow-Origin", "*")
+	                .header("Access-Control-Allow-Credentials", "true")
+	                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+	                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+	                .build();
+	    }
 		if (!userService.cadastrarUsuario(usuario)) {
-			return Response.status(Response.Status.BAD_REQUEST).header("Access-Control-Allow-Origin", "*")
-				      .header("Access-Control-Allow-Credentials", "true")
-				      .header("Access-Control-Allow-Headers",
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity("Requisição Inválida")
+					.header("Access-Control-Allow-Origin", "*")
+				    .header("Access-Control-Allow-Credentials", "true")
+				    .header("Access-Control-Allow-Headers",
 				        "origin, content-type, accept, authorization")
-				      .header("Access-Control-Allow-Methods", 
+				    .header("Access-Control-Allow-Methods", 
 				        "GET, POST, PUT, DELETE, OPTIONS, HEAD").build();
 		}
-		return Response.ok(usuario).header("Access-Control-Allow-Origin", "*")
-			      .header("Access-Control-Allow-Credentials", "true")
-			      .header("Access-Control-Allow-Headers",
+		return Response.ok(usuario)
+				.entity("Usuario Cadastrado")
+				.header("Access-Control-Allow-Origin", "*")
+			    .header("Access-Control-Allow-Credentials", "true")
+			    .header("Access-Control-Allow-Headers",
 			        "origin, content-type, accept, authorization")
-			      .header("Access-Control-Allow-Methods", 
+			    .header("Access-Control-Allow-Methods", 
 			        "GET, POST, PUT, DELETE, OPTIONS, HEAD").build();
 	}
 	
@@ -140,7 +152,8 @@ public class Resource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response inserirCliente(Cliente cliente) {
 		if (!clientService.inserirCliente(cliente)) {
-			Response.status(Response.Status.BAD_REQUEST).header("Access-Control-Allow-Origin", "*")
+			Response.status(Response.Status.BAD_REQUEST)
+			  .header("Access-Control-Allow-Origin", "*")
 		      .header("Access-Control-Allow-Credentials", "true")
 		      .header("Access-Control-Allow-Headers",
 		        "origin, content-type, accept, authorization")
@@ -167,19 +180,28 @@ public class Resource {
 	@GET
 	@Path("/modelo/{codigo}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response buscarPorId(@PathParam("codigo") Long codigo){
+	public Response buscarModeloPorId(@PathParam("codigo") Long codigo){
 		ModeloBike modelo = modeloService.listarPorCodigo(codigo);
 		if(modelo==null) return Response.status(Response.Status.NOT_FOUND).build();
 		return Response.ok(modelo).build();
 	}
 	
 	@GET
-	@Path("/modelos")
+	@Path("/acessorios")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response inserirAcessorio() {
+	public Response buscarAcessorios() {
 		List<Acessorio> lista = acessorioService.buscarAcessorios();
 		if (lista==null) return Response.status(Response.Status.NOT_FOUND).build();
 		return Response.ok(lista).build();
+	}
+	
+	@GET
+	@Path("/acessorio/{codigo}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response buscarAcessorioPorId(@PathParam("codigo") Long codigo){
+		Acessorio acessorio = acessorioService.listarPorCodigo(codigo);
+		if(acessorio==null) return Response.status(Response.Status.NOT_FOUND).build();
+		return Response.ok(acessorio).build();
 	}
 	
 	

@@ -4,14 +4,16 @@ public class Marca {
     private int codigo;
     private String nome;
 
+    public Marca() {}
+    
+    public Marca(String nome) {
+    	this.nome = nome;
+    }
+    
     public Marca(int codigo) {
     	this.codigo = codigo;
     }
     
-    public Marca(String nome) {
-        this.nome = nome;
-    }
-
 	public Marca(int codigo, String nome) {
 		this.codigo = codigo;
 		this.nome = nome;

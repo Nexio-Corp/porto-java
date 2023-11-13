@@ -2,7 +2,6 @@ package com.fiap.beans.user.bike.data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +10,8 @@ import com.fiap.beans.user.bike.Marca;
 import com.fiap.beans.user.bike.ModeloBike;
 
 public class ModeloBikeDao {
+	
+	MarcaDao marcaDao = new MarcaDao();
 
 	private Connection conexao() throws ClassNotFoundException, SQLException {
 		
@@ -27,13 +28,14 @@ public class ModeloBikeDao {
         var conexao = conexao();
         var resultado = conexao.createStatement().executeQuery("SELECT * FROM T_NSB_modelo_bike ORDER BY cod_modelo_bike");
         while (resultado.next()) {
+            Marca marca = marcaDao.findById(resultado.getInt("cod_marca"));
+            
             lista.add(new ModeloBike(
                     resultado.getString("nom_modelo_bike"),
-                    new Marca(resultado.getInt("cod_marca")),
+                    marca,
                     resultado.getDouble("val_medio_modelo"),
                     resultado.getString("des_tipo_modelo")));
         }
-        System.out.println(lista);
         conexao.close();
         return lista;
     }
@@ -47,10 +49,12 @@ public class ModeloBikeDao {
 		ps.setLong(1, codigo);
 		var resultado = ps.executeQuery();
 		while(resultado.next()){
+			Marca marca = marcaDao.findById(resultado.getInt("cod_marca"));
+			
 			modelo = new ModeloBike(
 //					resultado.getInt("cod_modelo_bike"),
 					resultado.getString("nom_modelo_bike"),
-                    new Marca(resultado.getInt("cod_marca")),
+                    marca,
                     resultado.getDouble("val_medio_modelo"),
                     resultado.getString("des_tipo_modelo"));
 		}

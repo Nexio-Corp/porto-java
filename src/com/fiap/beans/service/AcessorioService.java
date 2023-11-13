@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.fiap.beans.user.bike.Acessorio;
-import com.fiap.beans.user.bike.ModeloBike;
 import com.fiap.beans.user.bike.data.AcessorioDao;
 
 public class AcessorioService {

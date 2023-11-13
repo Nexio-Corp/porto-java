@@ -1,12 +1,20 @@
 package com.fiap.beans.user.bike;
 
 public class Acessorio {
-    private String codigo;
+    private Long codigo;
     private String nome;
     private String descricao;
     private double valor;
     private Marca marca;
 
+    public Acessorio(Long codigo, String nome, String descricao, double valor, Marca marca) {
+    	this.codigo = codigo;
+    	this.nome = nome;
+        this.descricao = descricao;
+        this.valor = valor;
+        this.marca = marca;
+    }
+    
     public Acessorio(String nome, String descricao, double valor, Marca marca) {
         this.nome = nome;
         this.descricao = descricao;
@@ -14,7 +22,7 @@ public class Acessorio {
         this.marca = marca;
     }
 
-    public String getCodigo() {
+    public Long getCodigo() {
         return codigo;
     }
 

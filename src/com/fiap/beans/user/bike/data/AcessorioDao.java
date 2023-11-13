@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fiap.beans.user.bike.Acessorio;
-import com.fiap.beans.user.bike.Marca;
-import com.fiap.beans.user.bike.ModeloBike;
 
 public class AcessorioDao {
 
+	MarcaDao marcaDao = new MarcaDao();
+	
 	private Connection conexao() throws ClassNotFoundException, SQLException {
 		final String URL = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
 		final String USER = "rm99627";
@@ -26,14 +26,15 @@ public class AcessorioDao {
         var conexao = conexao();
         var resultado = conexao.createStatement().executeQuery("SELECT * FROM T_NSB_acessorio ORDER BY cod_acessorio");
         while (resultado.next()) {
+        	var marca = marcaDao.findById(resultado.getInt("cod_marca"));
             lista.add(new Acessorio(
+            		
+            		resultado.getLong("cod_acessorio"),
                     resultado.getString("nom_acessorio"),
                     resultado.getString("des_acessorio"),
                     resultado.getDouble("val_acessorio"),
-                    new Marca(resultado.getInt("cod_marca"))
-                    ));
-        }//String nome, String descricao, int valor, Marca marca
-        System.out.println(lista);
+                    marca ));
+        }
         conexao.close();
         return lista;
 	}
@@ -47,12 +48,12 @@ public class AcessorioDao {
         var resultado = ps.executeQuery();
         
 		while(resultado.next()){
+			var marca = marcaDao.findById(resultado.getInt("cod_marca"));
 			acessorio = new Acessorio(
 					resultado.getString("nom_acessorio"),
                     resultado.getString("des_acessorio"),
                     resultado.getDouble("val_acessorio"),
-                    new Marca(resultado.getInt("cod_marca")
-					));
+                    marca);
 		}
 		return acessorio;
 	}
