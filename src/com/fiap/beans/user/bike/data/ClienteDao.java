@@ -7,11 +7,11 @@ import java.sql.SQLException;
 import com.fiap.beans.user.Cliente;
 
 public class ClienteDao {
-	private final String URL = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
-	private final String USER = "rm99627";
-	private final String PASS = "051298";
 
 	 public Connection conexao() throws ClassNotFoundException, SQLException {
+		 final String URL = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
+		 final String USER = "rm99627";
+		 final String PASS = "051298";
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			var conexao = DriverManager.getConnection(URL, USER, PASS);
 			return conexao;

@@ -11,9 +11,6 @@ import java.util.List;
 import com.fiap.beans.user.bike.Bike;
 
 public class BikeDao {
-	private final String URL = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
-	private final String USER = "rm99627";
-	private final String PASS = "051298";
 
     // Método para adicionar uma bike no banco de dados
     public void addBike(Bike bike) throws SQLException, ClassNotFoundException {
@@ -68,6 +65,10 @@ public class BikeDao {
     }
     
     public Connection conexao() throws ClassNotFoundException, SQLException {
+    	final String URL = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
+    	final String USER = "rm99627";
+    	final String PASS = "051298";
+
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		var conexao = DriverManager.getConnection(URL, USER, PASS);
 		return conexao;

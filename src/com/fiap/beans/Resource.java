@@ -2,12 +2,16 @@ package com.fiap.beans;
 
 import java.util.List;
 
+import com.fiap.beans.service.AcessorioService;
 import com.fiap.beans.service.ClienteService;
 import com.fiap.beans.service.MarcaService;
+import com.fiap.beans.service.ModeloBikeService;
 import com.fiap.beans.service.UsuarioService;
 import com.fiap.beans.user.Cliente;
 import com.fiap.beans.user.Usuario;
+import com.fiap.beans.user.bike.Acessorio;
 import com.fiap.beans.user.bike.Marca;
+import com.fiap.beans.user.bike.ModeloBike;
 
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -25,6 +29,8 @@ public class Resource {
 	MarcaService bikeService = new MarcaService() ;
 	UsuarioService userService = new UsuarioService() ;
 	ClienteService clientService = new ClienteService();
+	ModeloBikeService modeloService = new ModeloBikeService();
+	AcessorioService acessorioService = new AcessorioService();
 
 	@GET
 	@Path("/marcas")
@@ -88,7 +94,6 @@ public class Resource {
 	
 	@POST
 	@Path("/login/{user}")
-//	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response login(@PathParam("user") String user, Usuario usuario){
 		if (!userService.validarUsuario(usuario)) {
@@ -149,6 +154,34 @@ public class Resource {
 			      .header("Access-Control-Allow-Methods", 
 			        "GET, POST, PUT, DELETE, OPTIONS, HEAD").build();
 	}
+	
+	@GET
+	@Path("/modelos")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response inserirModeloBike() {
+		List<ModeloBike> lista = modeloService.buscarModelos();
+		if (lista==null) return Response.status(Response.Status.NOT_FOUND).build();
+		return Response.ok(lista).build();
+	}
+	
+	@GET
+	@Path("/modelo/{codigo}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response buscarPorId(@PathParam("codigo") Long codigo){
+		ModeloBike modelo = modeloService.listarPorCodigo(codigo);
+		if(modelo==null) return Response.status(Response.Status.NOT_FOUND).build();
+		return Response.ok(modelo).build();
+	}
+	
+	@GET
+	@Path("/modelos")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response inserirAcessorio() {
+		List<Acessorio> lista = acessorioService.buscarAcessorios();
+		if (lista==null) return Response.status(Response.Status.NOT_FOUND).build();
+		return Response.ok(lista).build();
+	}
+	
 	
 	
 	

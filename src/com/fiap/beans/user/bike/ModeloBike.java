@@ -7,6 +7,8 @@ public class ModeloBike {
     private double valor;
     private String tipo;
 
+    public ModeloBike(){};
+    
     public ModeloBike(String nome, Marca marca, double valor, String tipo) {
         this.nome = nome;
         this.marca = marca;

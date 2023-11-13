@@ -40,7 +40,7 @@ public class UsuarioDao {
 	public Usuario buscaUsuario(Usuario usuario) throws SQLException, ClassNotFoundException {
 		Usuario usuarioEncontrado = null;
 		var conexao = conexao();
-	    var sql = "SELECT FROM T_NSB_usuario where usuario = ? ";
+	    var sql = "SELECT * FROM T_NSB_usuario where usuario = ? ";
 	    var ps = conexao.prepareStatement(sql);
 	    var resultado = ps.executeQuery(sql);
 	    ps.setString(1, usuario.getUsuario());

@@ -4,10 +4,10 @@ public class Acessorio {
     private String codigo;
     private String nome;
     private String descricao;
-    private int valor;
+    private double valor;
     private Marca marca;
 
-    public Acessorio(String nome, String descricao, int valor, Marca marca) {
+    public Acessorio(String nome, String descricao, double valor, Marca marca) {
         this.nome = nome;
         this.descricao = descricao;
         this.valor = valor;
@@ -26,7 +26,7 @@ public class Acessorio {
         return descricao;
     }
 
-    public int getValor() {
+    public double getValor() {
         return valor;
     }
 
