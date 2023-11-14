@@ -89,6 +89,7 @@ public class UsuarioDao {
 					resultado.getString("des_email"),
 					resultado.getString("des_senha"));
 		}
+	    conexao.close();
 		return usuario;
 	}
 }

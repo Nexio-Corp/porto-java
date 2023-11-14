@@ -39,6 +39,7 @@ public class MarcaDao {
 					resultado.getString("nom_marca")
 					);
 		}
+		conexao.close();
 		return marca;
 	}
 

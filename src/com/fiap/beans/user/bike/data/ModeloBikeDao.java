@@ -58,6 +58,7 @@ public class ModeloBikeDao {
                     resultado.getDouble("val_medio_modelo"),
                     resultado.getString("des_tipo_modelo"));
 		}
+		conexao.close();
 		return modelo;
 	}
 }

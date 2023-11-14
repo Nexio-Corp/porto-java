@@ -13,6 +13,9 @@ public class BikeService {
 	public List<Bike> buscarBikes(){
 		try {
 			List<Bike> lista = dao.findAll();
+			for (Bike info : lista) {
+				System.out.println(info);
+			}
 			return lista;
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();

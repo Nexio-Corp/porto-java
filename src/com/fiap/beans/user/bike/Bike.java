@@ -58,11 +58,11 @@ public class Bike {
     }
 
     public Modificacao[] getModificacoes() {
-        return (Modificacao[]) modificacoes.toArray();
+        return modificacoes.toArray(new Modificacao[modificacoes.size()]);
     }
 
     public Acessorio[] getAcessorios() {
-        return (Acessorio[]) acessorios.toArray();
+        return acessorios.toArray( new Acessorio[acessorios.size()]);
     }
 
     public int getMediaUso() {

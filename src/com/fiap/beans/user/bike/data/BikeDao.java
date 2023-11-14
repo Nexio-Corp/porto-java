@@ -2,7 +2,6 @@ package com.fiap.beans.user.bike.data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,24 +28,23 @@ public class BikeDao {
 	}
 	
     public void addBike(Bike bike) throws SQLException, ClassNotFoundException {
-    	var connection = conexao();
-        String query = "INSERT INTO T_NSB_BIKE (cod_cliente, cod_modelo_bike, qtd_media_uso, dat_aquisicao_bike, " +
+    	var conexao = conexao();
+        var query = "INSERT INTO T_NSB_BIKE (cod_cliente, cod_modelo_bike, qtd_media_uso, dat_aquisicao_bike, " +
                        "obs_notas_bike, sta_utilizacao_bike, num_nota_bike, sta_locacao_bike, des_chassi_bike) " +
                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        var ps = conexao.prepareStatement(query);
+        ps.setInt(1, bike.getCliente().getCodigo());
+        ps.setInt(2, bike.getModelo().getCodigo());
+        ps.setInt(3, bike.getMediaUso());
+        ps.setDate(4, new java.sql.Date(bike.getAquisicao().getTime()));
+        ps.setString(5, bike.getNotas());
+        ps.setString(6, bike.getUtilizacao());
+        ps.setString(7, bike.getNumNota());
+        ps.setString(8, bike.isParaLocacao() ? "Disponível" : "Indisponível");
+        ps.setString(9, bike.getNumChassi());
 
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setInt(1, bike.getCliente().getCodigo());
-            ps.setInt(2, bike.getModelo().getCodigo());
-            ps.setInt(3, bike.getMediaUso());
-            ps.setDate(4, new java.sql.Date(bike.getAquisicao().getTime()));
-            ps.setString(5, bike.getNotas());
-            ps.setString(6, bike.getUtilizacao());
-            ps.setString(7, bike.getNumNota());
-            ps.setString(8, bike.isParaLocacao() ? "Disponível" : "Indisponível");
-            ps.setString(9, bike.getNumChassi());
-
-            ps.executeUpdate();
-        }
+        ps.executeUpdate();
+        conexao.close();
     }
 
     public List<Bike> findAll() throws SQLException, ClassNotFoundException {
@@ -60,6 +58,7 @@ public class BikeDao {
         	var listAcessorios = acessorioDao.findAll();
         	var cliente = clienteDao.findById(resultado.getInt("cod_cliente"));
         	
+        	
             bikes.add(new Bike(
             		modelo,
             		listModificacao, 
@@ -69,10 +68,11 @@ public class BikeDao {
             		resultado.getString("obs_notas_bike"), 
             		resultado.getString("sta_utilizacao_bike"), 
             		resultado.getString("num_nota_bike"), 
-            		resultado.getBoolean(""),
+            		resultado.getBoolean("sta_locacao_bike"),
             		cliente,
             		resultado.getString("des_chassi_bike")));
         }
+        conexao.close();
         return bikes;
     } 
 }

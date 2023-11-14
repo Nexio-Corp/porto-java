@@ -48,13 +48,14 @@ public class ClienteDao {
 			cliente = new Cliente(
 					resultado.getString("nom_cliente"),
 					resultado.getString("des_cpf_cliente"),
-					resultado.getString("des_email_clientee"),
+					resultado.getString("des_email_cliente"),
 					resultado.getString("des_cep_cliente"),
 					resultado.getString("des_endereco_cliente"),
 					resultado.getDate("dat_nasc_cliente"),
 					resultado.getString("des_telefone_cliente")
 					);
 		}
+		conexao.close();
 		return cliente;
 	}
 

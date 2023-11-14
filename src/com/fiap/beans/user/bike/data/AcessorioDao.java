@@ -55,6 +55,7 @@ public class AcessorioDao {
                     resultado.getDouble("val_acessorio"),
                     marca);
 		}
+		conexao.close();
 		return acessorio;
 	}
 
