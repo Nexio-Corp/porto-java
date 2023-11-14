@@ -1,14 +1,15 @@
 package com.fiap.beans.user.bike;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import com.fiap.beans.user.Cliente;
 
 public class Bike {
     private int codigo;
     private ModeloBike modelo;
-    private ArrayList<Modificacao> modificacoes;
-    private ArrayList<Acessorio> acessorios;
+    private List<Modificacao> modificacoes;
+    private List<Acessorio> acessorios;
     private int mediaUso;
     private Date aquisicao;
     private String notas;
@@ -17,15 +18,14 @@ public class Bike {
     private boolean paraLocacao;
     private Cliente cliente;
     private String numChassi;
-    private int codUsuario;
 
-    public Bike(ModeloBike modelo, ArrayList<Modificacao> modificacoes, 
-    		ArrayList<Acessorio> acessorios, int mediaUso,
+    public Bike(ModeloBike modelo, List<Modificacao> listModificacao, 
+    		List<Acessorio> acessorios, int mediaUso,
             Date aquisicao, String notas, String utilizacao, String numNota, 
-            boolean paraLocacao, Cliente cliente, String numChassi, int codUsuario) {
+            boolean paraLocacao, Cliente cliente, String numChassi) {
         // A fazer: enviar para o banco de dados
         this.modelo = modelo;
-        this.modificacoes = modificacoes;
+        this.modificacoes = listModificacao;
         this.acessorios = acessorios;
         this.mediaUso = mediaUso;
         this.aquisicao = aquisicao;
@@ -34,8 +34,7 @@ public class Bike {
         this.numNota = numNota;
         this.paraLocacao = paraLocacao;
         this.cliente = cliente;
-        this.numChassi = numChassi;
-        this.codUsuario = codUsuario;
+        this.numChassi = numChassi;;
     }
 
     public Bike addModificacao(Modificacao modificacao) {
@@ -97,7 +96,7 @@ public class Bike {
     public String getNumChassi() {
         return numChassi;
     }
-    public void setCodigo(int codigoBike) {
+    public void setCodigo(int codigo) {
     	this.codigo = codigo;
     }
 

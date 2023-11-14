@@ -35,6 +35,25 @@ public class UsuarioDao {
 	    return true;
 	}
 
+	public Usuario findById(Integer codigo) throws SQLException, ClassNotFoundException {
+		Usuario usuario = null;
+		var conexao = conexao();
+		var sql = "SELECT * FROM T_NSB_MARCA WHERE cod_marca = ?";
+        var ps = conexao.prepareStatement(sql);
+        ps.setInt(1, codigo);
+        var resultado = ps.executeQuery();
+        
+        while(resultado.next()){
+			usuario = new Usuario(
+					resultado.getString("usuario"),
+					resultado.getString("token_auth"),
+					resultado.getString("des_email"),
+					resultado.getString("des_senha"));
+		}
+	    ps.executeUpdate();
+	    conexao.close();
+		return usuario;
+	}
 	
 	public Usuario buscaUsuario(Usuario usuario) throws SQLException, ClassNotFoundException {
 		Usuario usuarioEncontrado = null;

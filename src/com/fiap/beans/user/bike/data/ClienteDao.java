@@ -35,5 +35,27 @@ public class ClienteDao {
 	    connection.close();
 		return cliente;
     }
+    
+    public Cliente findById(Integer codigo) throws SQLException, ClassNotFoundException {
+		Cliente cliente = null;
+		var conexao = conexao();
+		var sql = "SELECT * FROM T_NSB_cliente WHERE cod_cliente = ?";
+        var ps = conexao.prepareStatement(sql);
+        ps.setInt(1, codigo);
+        var resultado = ps.executeQuery();
+        
+		while(resultado.next()){
+			cliente = new Cliente(
+					resultado.getString("nom_cliente"),
+					resultado.getString("des_cpf_cliente"),
+					resultado.getString("des_email_clientee"),
+					resultado.getString("des_cep_cliente"),
+					resultado.getString("des_endereco_cliente"),
+					resultado.getDate("dat_nasc_cliente"),
+					resultado.getString("des_telefone_cliente")
+					);
+		}
+		return cliente;
+	}
 
 }

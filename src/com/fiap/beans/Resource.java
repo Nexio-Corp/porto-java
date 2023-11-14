@@ -3,6 +3,7 @@ package com.fiap.beans;
 import java.util.List;
 
 import com.fiap.beans.service.AcessorioService;
+import com.fiap.beans.service.BikeService;
 import com.fiap.beans.service.ClienteService;
 import com.fiap.beans.service.MarcaService;
 import com.fiap.beans.service.ModeloBikeService;
@@ -10,6 +11,7 @@ import com.fiap.beans.service.UsuarioService;
 import com.fiap.beans.user.Cliente;
 import com.fiap.beans.user.Usuario;
 import com.fiap.beans.user.bike.Acessorio;
+import com.fiap.beans.user.bike.Bike;
 import com.fiap.beans.user.bike.Marca;
 import com.fiap.beans.user.bike.ModeloBike;
 
@@ -26,7 +28,8 @@ import jakarta.ws.rs.core.Response;
 @Path("api")
 public class Resource {
 	
-	MarcaService bikeService = new MarcaService() ;
+	BikeService bikeService = new BikeService();
+	MarcaService marcaService = new MarcaService() ;
 	UsuarioService userService = new UsuarioService() ;
 	ClienteService clientService = new ClienteService();
 	ModeloBikeService modeloService = new ModeloBikeService();
@@ -36,7 +39,7 @@ public class Resource {
 	@Path("/marcas")
     @Produces(MediaType.APPLICATION_JSON)
 	public Response buscarMarcas(){
-		List<Marca> lista = bikeService.listarMarcas();
+		List<Marca> lista = marcaService.listarMarcas();
 		if (lista==null) return Response.status(Response.Status.NOT_FOUND).build();
 		return Response.ok(lista).build();
 	}
@@ -45,7 +48,7 @@ public class Resource {
 	@Path("/marca/{codigo}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response buscarMarcaPorId(@PathParam("codigo") Integer codigo){
-		Marca marca = bikeService.listarPorCodigo(codigo);
+		Marca marca = marcaService.listarPorCodigo(codigo);
 		if(marca==null) return Response.status(Response.Status.NOT_FOUND).build();
 		return Response.ok(marca).build();
 	}
@@ -53,9 +56,9 @@ public class Resource {
 	@DELETE
 	@Path("/marca/{codigo}")
 	public Response deleteMarca(@PathParam("codigo") Integer codigo) {
-		var marca = bikeService.listarPorCodigo(codigo);
+		var marca = marcaService.listarPorCodigo(codigo);
 		if(marca == null) return Response.status(Response.Status.NOT_FOUND).build();
-		bikeService.delete(marca);
+		marcaService.delete(marca);
 		return Response.noContent().build();
 	}
 	
@@ -63,7 +66,7 @@ public class Resource {
 	@Path("/cadastro-marca")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response inserirMarca(Marca marca) {
-		if (!bikeService.create(marca)) {
+		if (!marcaService.create(marca)) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
 		return Response.ok(marca).build();
@@ -73,9 +76,9 @@ public class Resource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/atualiza-marca/{id}")
 	public Response atualizaMarca(@PathParam("id") Integer id, Marca marca) {
-		var marcaEncontrada = bikeService.listarPorCodigo(id);
+		var marcaEncontrada = marcaService.listarPorCodigo(id);
 		if (marcaEncontrada == null) return Response.status(Response.Status.NOT_FOUND).build();
-		if(!bikeService.update(marca)) return Response.status(Response.Status.BAD_REQUEST).build();
+		if(!marcaService.update(marca)) return Response.status(Response.Status.BAD_REQUEST).build();
 		return Response.ok(marca).build();
 	}
 	
@@ -204,7 +207,14 @@ public class Resource {
 		return Response.ok(acessorio).build();
 	}
 	
-	
+	@GET
+	@Path("/bikes")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response buscarBikes() {
+		List<Bike> lista = bikeService.buscarBikes();
+		if (lista==null) return Response.status(Response.Status.NOT_FOUND).build();
+		return Response.ok(lista).build();
+	}
 	
 	
 }

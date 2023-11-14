@@ -40,7 +40,7 @@ public class Cliente {
             String numNota, boolean paraLocacao, String numChassi, int codUsuario) {
 
         this.bikes.add(new Bike(modelo, modificacoes, acessorios, mediaUso, aquisicao, notas,
-                utilizacao, numNota, paraLocacao, this, numChassi,  codUsuario));
+                utilizacao, numNota, paraLocacao, this, numChassi));
     }
 
     public int getCodigo() {
