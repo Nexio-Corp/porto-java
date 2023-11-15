@@ -50,6 +50,7 @@ public class AcessorioDao {
 		while(resultado.next()){
 			var marca = marcaDao.findById(resultado.getInt("cod_marca"));
 			acessorio = new Acessorio(
+					resultado.getLong("cod_acessorio"),
 					resultado.getString("nom_acessorio"),
                     resultado.getString("des_acessorio"),
                     resultado.getDouble("val_acessorio"),

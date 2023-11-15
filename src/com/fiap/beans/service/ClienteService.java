@@ -10,7 +10,6 @@ public class ClienteService {
 	ClienteDao dao = new ClienteDao();
 
 	public boolean inserirCliente(Cliente cliente) {
-//		Usuario usuario = cadastrarUsuario(user.getUsuario(), user.getTokenAuth());
 		try {
 			dao.inserirCliente(cliente);
 			return true;

@@ -216,5 +216,20 @@ public class Resource {
 		return Response.ok(lista).build();
 	}
 	
+	@POST
+	@Path("/cadastro-bike")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response inserirBike(Bike bike) {
+		if (bikeService.existeBike(bike)) {
+			return Response.status(Response.Status.CONFLICT)
+					.entity("Bike já cadastrada").build();
+		}
+		if (!bikeService.adicionaBike(bike)) {
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity("Requisição Inválida").build();
+		}
+		return Response.ok(bike).build();
+	}
+	
 	
 }

@@ -11,6 +11,7 @@ public class Bike {
     private List<Modificacao> modificacoes;
     private List<Acessorio> acessorios;
     private int mediaUso;
+    private Long valor;
     private Date aquisicao;
     private String notas;
     private String utilizacao;
@@ -19,10 +20,12 @@ public class Bike {
     private Cliente cliente;
     private String numChassi;
 
+    public Bike() {}
+    
     public Bike(ModeloBike modelo, List<Modificacao> listModificacao, 
     		List<Acessorio> acessorios, int mediaUso,
             Date aquisicao, String notas, String utilizacao, String numNota, 
-            boolean paraLocacao, Cliente cliente, String numChassi) {
+            boolean paraLocacao, Cliente cliente, String numChassi, Long valor) {
         // A fazer: enviar para o banco de dados
         this.modelo = modelo;
         this.modificacoes = listModificacao;
@@ -34,7 +37,8 @@ public class Bike {
         this.numNota = numNota;
         this.paraLocacao = paraLocacao;
         this.cliente = cliente;
-        this.numChassi = numChassi;;
+        this.numChassi = numChassi;
+        this.valor = valor;
     }
 
     public Bike addModificacao(Modificacao modificacao) {
@@ -98,6 +102,10 @@ public class Bike {
     }
     public void setCodigo(int codigo) {
     	this.codigo = codigo;
+    }
+    
+    public Long getValor() {
+    	return valor;
     }
 
     @Override

@@ -37,10 +37,10 @@ public class Cliente {
     public void cadastroBike(
             ModeloBike modelo, ArrayList<Modificacao> modificacoes, ArrayList<Acessorio> acessorios,
             int mediaUso, Date aquisicao, String notas, String utilizacao,
-            String numNota, boolean paraLocacao, String numChassi, int codUsuario) {
+            String numNota, boolean paraLocacao, String numChassi, int codUsuario, Long valor) {
 
         this.bikes.add(new Bike(modelo, modificacoes, acessorios, mediaUso, aquisicao, notas,
-                utilizacao, numNota, paraLocacao, this, numChassi));
+                utilizacao, numNota, paraLocacao, this, numChassi, valor));
     }
 
     public int getCodigo() {

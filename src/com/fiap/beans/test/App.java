@@ -25,7 +25,7 @@ public class App {
                 new Date(System.currentTimeMillis()), "123456789");
 
         user.getCliente().cadastroBike(caloi10, new ArrayList<Modificacao>(), new ArrayList<Acessorio>(), 10,
-                new Date(System.currentTimeMillis()), "Notas", "Utilização", "123456789", false, "123456789", 0);
+                new Date(System.currentTimeMillis()), "Notas", "Utilização", "123456789", false, "123456789", 0, 2500L);
 
         user.getCliente().getBikes().get(0).addModificacao(rodaAro10).addAcessorio(lacinhoAcessorio);
 

@@ -13,13 +13,34 @@ public class BikeService {
 	public List<Bike> buscarBikes(){
 		try {
 			List<Bike> lista = dao.findAll();
-			for (Bike info : lista) {
-				System.out.println(info);
-			}
 			return lista;
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
+
+	public boolean adicionaBike(Bike bike) {
+		try {
+			dao.addBike(bike);
+			return true;
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean existeBike(Bike bike) {
+		try {
+			var bikeEncontrada = dao.buscarPorChassi(bike.getNumChassi());
+			var validacao = bikeEncontrada != null
+					&& bike.getNumChassi().equals(bikeEncontrada.getNumChassi());
+			return validacao;
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+		
+	}
+	
 }
