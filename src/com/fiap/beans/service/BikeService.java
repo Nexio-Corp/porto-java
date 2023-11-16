@@ -8,7 +8,7 @@ import com.fiap.beans.user.bike.data.BikeDao;
 
 public class BikeService {
 
-	BikeDao dao = new BikeDao();
+	private BikeDao dao = new BikeDao();
 	
 	public List<Bike> buscarBikes(){
 		try {

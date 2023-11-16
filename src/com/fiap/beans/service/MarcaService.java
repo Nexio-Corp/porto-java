@@ -1,4 +1,4 @@
-package com.fiap.beans.service;
+ package com.fiap.beans.service;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -8,7 +8,7 @@ import com.fiap.beans.user.bike.data.MarcaDao;
 
 public class MarcaService {
 	
-	MarcaDao marcaDao = new MarcaDao();
+	private MarcaDao marcaDao = new MarcaDao();
 
 	public List<Marca> listarMarcas(){
 		try {

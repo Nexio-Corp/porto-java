@@ -7,7 +7,7 @@ import com.fiap.beans.user.bike.data.ClienteDao;
 
 public class ClienteService {
 
-	ClienteDao dao = new ClienteDao();
+	private ClienteDao dao = new ClienteDao();
 
 	public boolean inserirCliente(Cliente cliente) {
 		try {

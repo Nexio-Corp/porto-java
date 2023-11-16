@@ -8,7 +8,7 @@ import com.fiap.beans.user.bike.data.AcessorioDao;
 
 public class AcessorioService {
 	
-	AcessorioDao dao = new AcessorioDao();
+	private AcessorioDao dao = new AcessorioDao();
 
 	public List<Acessorio> buscarAcessorios(){
 		try {

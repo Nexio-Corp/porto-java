@@ -7,7 +7,7 @@ import com.fiap.beans.user.bike.data.UsuarioDao;
 
 public class UsuarioService {
 
-	UsuarioDao dao = new UsuarioDao() ;
+	private UsuarioDao dao = new UsuarioDao() ;
 	
 	public boolean inserirUsuario(Usuario user) {
 //		Usuario usuario = cadastrarUsuario(user.getUsuario(), user.getTokenAuth());

@@ -11,9 +11,7 @@ import com.fiap.beans.user.bike.Modificacao;
 
 public class ModificacaoDao {
 
-
-	MarcaDao marcaDao = new MarcaDao();
-
+	private MarcaDao marcaDao = new MarcaDao();
 
 	private Connection conexao() throws ClassNotFoundException, SQLException {
 		

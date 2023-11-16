@@ -18,7 +18,7 @@ public class BikeDao {
 	private AcessorioDao acessorioDao = new AcessorioDao();
 	private ClienteDao clienteDao = new ClienteDao();
 	
-    public Connection conexao() throws ClassNotFoundException, SQLException {
+    private Connection conexao() throws ClassNotFoundException, SQLException {
     	final String URL = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
     	final String USER = "rm99627";
     	final String PASS = "051298";
